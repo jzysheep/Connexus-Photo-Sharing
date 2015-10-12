@@ -1,35 +1,36 @@
 body {
-    margin: 0;
-    padding: 10px 20px 20px;
-    font-family: Arial;
-    font-size: 16px;
-}
+        margin: 0;
+        padding: 10px 20px 20px;
+        font-family: Arial;
+        font-size: 16px;
+        padding-top: 60px;
+      }
 
-#map-container {
-    padding: 6px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #ccc #ccc #999 #ccc;
-    -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
-    -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
-    box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
-    width: 1100px;
-}
+      #map-container {
+        padding: 6px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #ccc #ccc #999 #ccc;
+        -webkit-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+        -moz-box-shadow: rgba(64, 64, 64, 0.5) 0 2px 5px;
+        box-shadow: rgba(64, 64, 64, 0.1) 0 2px 5px;
+        width: 1100px;
+      }
 
-#map {
-    width: 1100px;
-    height: 500px;
-}
+      #map {
+        width: 1100px;
+        height: 500px;
+      }
 
-#actions {
-    list-style: none;
-    padding: 0;
-}
+      #actions {
+        list-style: none;
+        padding: 0;
+      }
 
-#inline-actions {
-    padding-top: 10px;
-}
+      #inline-actions {
+        padding-top: 10px;
+      }
 
-.item {
-    margin-left: 20px;
-}
+      .item {
+        margin-left: 20px;
+      }

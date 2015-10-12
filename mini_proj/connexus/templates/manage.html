@@ -8,50 +8,53 @@
 
 {% block main_content %}
 
-<form action="{{ delete_owned_stream_handler_url }}" method="post">
-    <h3>Streams I Own</h3>
-    <table rules="cols" border="0" cellpadding="10" cellspacing="5">
-        <tr>
-            <th>Name</th>
-            <th>Last New Picture</th>
-            <th>Number of Pictures</th>
-            <th>Delete</th>
-        </tr>
-        {% for s in owned_stream_info_list %}
-        <tr>
-            <td><a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">{{ s['name'] }}</a></td>
-            <td>{{ s['LatestImageDate'] }}</td>
-            <td>{{ s['NumOfImages'] }}</td>
-            <td><input type="checkbox" name="delete_owned" value="{{ s['key'].urlsafe() }}"></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <input type="submit" value="Delete Checked">
-</form>
+<div class="container">
+    <form action="{{ delete_owned_stream_handler_url }}" method="post">
+        <h3>Streams I Own</h3>
+        <table class = "table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Last New Picture</th>
+                <th>Number of Pictures</th>
+                <th>Delete</th>
+            </tr>
+            {% for s in owned_stream_info_list %}
+            <tr>
+                <td><a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">{{ s['name'] }}</a></td>
+                <td>{{ s['LatestImageDate'] }}</td>
+                <td>{{ s['NumOfImages'] }}</td>
+                <td><input type="checkbox" name="delete_owned" value="{{ s['key'].urlsafe() }}"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <input type="submit" class="btn btn-info" value="Delete Checked">
+    </form>
+</div>
 
-<form action="{{ unsubscribe_stream_handler_url }}" method="post">
-    <h3>Streams I Subscribe to</h3>
-    <table rules="cols" border="0" cellpadding="10" cellspacing="5">
-        <tr>
-            <th>Name</th>
-            <th>Last New Picture</th>
-            <th>Number of Pictures</th>
-            <th>Views</th>
-            <th>Unsubscribe</th>
-        </tr>
-        {% for s in subscribed_stream_info_list %}
-        <tr>
+<div class="container">
+    <form action="{{ unsubscribe_stream_handler_url }}" method="post">
+        <h3>Streams I Subscribe to</h3>
+        <table class = "table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Last New Picture</th>
+                <th>Number of Pictures</th>
+                <th>Views</th>
+                <th>Unsubscribe</th>
+            </tr>
+            {% for s in subscribed_stream_info_list %}
+            <tr>
             <td><a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">{{ s['name'] }}</a></td>
             <td>{{ s['LatestImageDate'] }}</td>
             <td>{{ s['NumOfImages'] }}</td>
             <td>{{ s['NumOfViews'] }}</td>
             <td><input type="checkbox" name="unsubscribe" value="{{ s['key'].urlsafe() }}"></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-    <input type="submit" value="Unsubscribe Checked Streams">
-</form>
-
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <input type="submit" class="btn btn-info" value="Unsubscribe Checked Streams">
+    </form>
+</div>
 {% endblock %}

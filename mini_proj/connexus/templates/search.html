@@ -2,7 +2,9 @@
 
 {% block head_title %}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
 <script src="/assets/js/jquery-1.10.2.js"></script>
 <script src="/assets/js/jquery-ui.js"></script>
 <script type='text/javascript' src='/assets/js/auto_complete.js'></script>
@@ -13,35 +15,32 @@
 
 {% block main_content %}
 
-<div></div>
 
-<div>
+
+<div class="container">
     <form action="/search" method="get">
         <h3>Search Streams</h3>
-        <div>
+        <br>
+
+        <div class="form-group">
             <input name="search_str" size="35" id="search_str">
-            <input type="submit" value="Search Stream">
+        </div>
+        <div class="form-group">
+            <div><input class="btn btn-info" type="submit" value="Search Stream"></div>
         </div>
     </form>
 </div>
 
-<div>
-    <table cellpadding="5">
-    {% for s in stream_list %}
-        {% if stream_list.index(s) % num_of_cols == 0 %}
-        <tr>
-        {% endif %}
-        <td align="center" valign="center">
-            <a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
-                <img src="{{ s['cover_photo_url'] }}" height="200" width="300">
-                <h4>{{ s['name'] }}</h4>
+
+<div class="container">
+        {% for s in stream_list %}
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
+                <img class="img-responsive" src="{{ s['cover_photo_url'] }}" alt="" height="200" width="300">
+                <h4 align="center">{{ s['name'] }}</h4>
             </a>
-        </td>
-        {% if stream_list.index(s) % num_of_cols == (num_of_cols - 1) %}
-        </tr>
-        {% endif %}
-    {% endfor %}
-    </table>
+        </div>
+        {% endfor %}
 </div>
 
 {% endblock %}

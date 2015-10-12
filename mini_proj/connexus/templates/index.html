@@ -5,14 +5,25 @@
 <html>
 
 <head>
+    <link type="text/css" rel="stylesheet" href="/assets/css/bootstrap.min.css" >
+
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="/assets/css/thumbnail-gallery.css">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <title>Connex: Welcome</title>
 </head>
 
 <body>
-    <h1>Welcome to Connexus!</h1>
-    <h5>Share the world!</h5>
+<div class="container">
+  <div class="form-group">
+        <h1>Welcome to Connexus!</h1>
+        <h3>Share the world!</h3>
 
-    <a href="{{ login_url }}">Login</a>
+        <a href="{{ login_url }}" class="btn btn-info" role="button" >Login</a>
+  </div>
+</div>
 </body>
 
 </html>

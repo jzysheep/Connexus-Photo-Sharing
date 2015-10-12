@@ -9,25 +9,39 @@
 {% block main_content %}
 
 <form action="/create" method="post">
+<div class="container">
     <h3>Create New Stream</h3>
-    <div style="float: left; width: 20%;">
-        <label>Name your stream</label>
-        <div><input name="stream_name" size="20"></div>
+    <div class="row">
+        <div class="col-sm-6">
 
-        <label>Add subscribers</label>
-        <div><textarea name="email_list" rows="6" cols="30" placeholder="An email invitation will be sent to every email address here"></textarea></div>
-        <div><textarea name="optional_message" rows="3" cols="30" placeholder="Optional message to be added in the invitation email."></textarea></div>
-        <br>
-        <div><input type="submit" value="Create Stream"></div>
+            <div class="form-group">
+                <label>Name your stream</label>
+                <div><input class="form-control" name="stream_name" size="20"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Add subscribers</label>
+                <div><textarea class="form-control" name="email_list" rows="6" cols="30" placeholder="An email invitation will be sent to every email address here"></textarea></div>
+                <div><textarea class="form-control" name="optional_message" rows="3" cols="30" placeholder="Optional message to be added in the invitation email."></textarea></div>
+             </div>
+
+            <div class="form-group">
+                <div><input type="submit"  class="btn btn-info" value="Create Stream"></div>
+             </div>
     </div>
 
-    <div style="float: right; width: 80%;">
-        <label>Tag your stream</label>
-        <div><textarea name="tag_list" rows="3" cols="45" placeholder="Each tag name is preceded by a pound sign(#) (e.g. #tag1 # tag2)"></textarea></div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Tag your stream</label>
+                <div><textarea class="form-control" name="tag_list" rows="3" cols="45" placeholder="Each tag name is preceded by a pound sign(#) (e.g. #tag1 # tag2)"></textarea></div>
+            </div>
 
-        <label>URL to cover image (can be empty)</label>
-        <div><textarea name="image_url" rows="3" cols="45" placeholder="If no valid url is specified, the latest uploaded photo (if any) is used as stream cover."></textarea></div>
+       <div class="form-group">
+            <label>URL to cover image (can be empty)</label>
+            <div><textarea class="form-control" name="image_url" rows="1" cols="45"></textarea></div>
+       </div>
+    </div>
     </div>
 </form>
-
 {% endblock %}

@@ -83,7 +83,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   this.setMap(map);
 
   this.prevZoom_ = this.map_.getZoom();
-    
+
   // Add the map event listeners
   var that = this;
   google.maps.event.addListener(this.map_, 'zoom_changed', function() {
@@ -92,7 +92,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
   	if (zoom < 0 || zoom > maxZoom) {
   	  return;
   	}
-  	
+
     if (that.prevZoom_ != zoom) {
       that.prevZoom_ = that.map_.getZoom();
       that.resetViewport();

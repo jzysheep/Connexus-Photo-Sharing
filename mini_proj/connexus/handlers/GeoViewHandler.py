@@ -45,19 +45,19 @@ class GeoViewHandler(webapp2.RequestHandler):
         image_list = image_query.fetch()
 
         for image in image_list:
-            createTime = str(image.upload_date)[:10]
-            date_object = datetime.strptime(createTime, '%Y-%m-%d')
+            createTime = str(image.upload_date)
+            # date_object = datetime.strptime(createTime, '%Y-%m-%d')
 
             lat = - 57.32652122521709 + 114.65304245043419 * random.random()
             lon = - 123.046875 + 246.09375 * random.random()
 
-            if aYearAgo <= date_object:
-                images_info.append({
-                    "url": images.get_serving_url(image.blob_key),
-                    "lon": lon,
-                    "lat": lat,
-                    "createTime": createTime
-                })
+            # if aYearAgo <= date_object:
+            images_info.append({
+                "url": images.get_serving_url(image.blob_key),
+                "lon": lon,
+                "lat": lat,
+                "createTime": createTime
+            })
 
         return images_info
 

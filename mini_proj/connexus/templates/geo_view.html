@@ -12,10 +12,12 @@
 <script type="text/javascript" src="/assets/js/slider.js"></script>
 <script type="text/javascript" src="/assets/js/geoview.js"></script>
 
+
 <script type="text/javascript">
 var current = new Date();
-var currentDate = current.getDate()
-var currentMonth = current.getMonth() + 1
+var currentDate = current.getDate()        // local time
+
+var currentMonth = current.getMonth() + 1  // Month off by 1
 if (currentDate.toString().length == 1)
 	{
 	currentDate = '0'+currentDate
@@ -25,8 +27,12 @@ if (currentMonth.toString().length == 1)
 	currentMonth = '0'+currentMonth
 	}
 var currentYear = current.getFullYear()
-var currentTime = currentYear.toString() + '-' + currentMonth.toString() + '-' + currentDate.toString()
+var currentTime = currentYear.toString() + '-' + currentMonth.toString() + '-' + currentDate.toString() //local time in another format
+
+
 var oneYearAgo = Back_date(currentTime, -365)
+
+
       google.load('maps', '3', {
         other_params: 'sensor=false'
       });
@@ -36,31 +42,31 @@ var oneYearAgo = Back_date(currentTime, -365)
       var map = null;
       var imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&' +
           'chco=FFFFFF,008CFF,000000&ext=.png';
+          
 
-	  ///////////////////refreshMap
       function refreshMap(result) {
         if (markerClusterer) {
           markerClusterer.clearMarkers();
         }
         var markers = [];
-
+        
         var markerImage = new google.maps.MarkerImage(imageUrl,
           new google.maps.Size(24, 32));
 		for (var i = 0; i < result.length; i++)
 		{
 		          var latLng = new google.maps.LatLng(result[i].lat,
 		              result[i].lon)
-
+		              
 		          var marker = new google.maps.Marker({
 		           position: latLng,
 		           draggable: true,
 		           icon: markerImage
 		          });
 
-		          var contentString = '<div><img src=' + result[i].url + ' width="100" height="100"></div>' + '<div>' + result[i].createTime + '</div>'
+		          var contentString = '<div><img src=' + result[i].url + ' width="100" height="100"></div>'
 		          createInfoWindow(marker, contentString);
 		          markers.push(marker);
-		}
+		}  
 		var infoWindow = new google.maps.InfoWindow();
 	    function createInfoWindow(marker, contentString) {
 	        google.maps.event.addListener(marker, 'mouseover', function () {
@@ -79,50 +85,59 @@ var oneYearAgo = Back_date(currentTime, -365)
           gridSize: size,
           styles: styles[style]
         });
-      } //Done refresh
+      }
+      
+      
 
-
-		//////////////////////initialize
       function initialize() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 2,
           center: new google.maps.LatLng(39.91, 116.38),
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-		var result = {{ image_info|safe }}
+		var result = {{ image_info|safe }};
         refreshMap(result);
       }
+		
 
-	  ///////////////////clearClusters
       function clearClusters(e) {
         e.preventDefault();
         e.stopPropagation();
         markerClusterer.clearMarkers();
       }
-  $(function() {
+
+  $(function() {  
     $( "#slider-range" ).slider({
       range: true,
       min: 0,
       max: 365,
       step:1,
       values: [0, 365],
-
+      
       slide: function( event, ui ) {
 	      var val0 = ui.values[0];
 	      var val1 = ui.values[1];
 
+
 	      var newDate0 = Back_date(oneYearAgo,val0);
 	      var newDate1 = Back_date(oneYearAgo,val1);
 
-	      $( "#time" ).val( newDate0 + " -> " + newDate1);
+          $( "#time" ).val( newDate0 + " -> " + newDate1);
 
 	      var newResult = []
 	      var result = {{ image_info|safe }}
 	      for (var i = 0; i < result.length; i++)
 	      {
-		      var x = new Date(result[i].createTime.toString());
-		      var newDate0TimeObj = new Date(newDate0);
-		      var newDate1TimeObj = new Date(newDate1);
+		      var x = new Date(result[i].createTime.toString());     // UTC Time is converted to local
+		      x.setMinutes(x.getMinutes() + x.getTimezoneOffset());
+		      var newDate0TimeObj = new Date(newDate0);             // UTC is be converted to local, but we should add time offset to construct a whole day in current time zone
+		      var newDate1TimeObj = new Date(newDate1);             // UTC is be converted to local
+              newDate0TimeObj.setMinutes(newDate0TimeObj.getMinutes() + newDate0TimeObj.getTimezoneOffset());
+              newDate1TimeObj.setMinutes(newDate1TimeObj.getMinutes() + newDate1TimeObj.getTimezoneOffset());
+		      newDate0TimeObj.setDate(newDate0TimeObj.getDate() + 0)
+              newDate1TimeObj.setDate(newDate1TimeObj.getDate() + 1)     // convert to the end of the day in local time
+//               alert(newDate0TimeObj + x + newDate1TimeObj)
+
 
 		      if (x >= newDate0TimeObj && x <= newDate1TimeObj )
 		      {
@@ -131,21 +146,26 @@ var oneYearAgo = Back_date(currentTime, -365)
 	      }
 	      refreshMap(newResult);
       }
-
+      
     });
+    
+//    var val0 = ui.values[0];
+//    var val1 = ui.values[0];
 
-    var val0 = $("#slider-range").slider("values", 0);
-    var val1 = $("#slider-range").slider("values", 1);
+       var val0 = $("#slider-range").slider("values", 0);
+        var val1 = $("#slider-range").slider("values", 1);
 
     $( "#time" ).val(Back_date(oneYearAgo,val0) + " -> " + Back_date(oneYearAgo,val1));
-
-
+      
+      
   });
-
+  
   function Back_date(current_date, dayOff)
-{
+{    
     var back_GTM = new Date(current_date);
+//    alert("function back_GTM" + back_GTM)
     back_GTM.setDate(back_GTM.getDate() + dayOff + 1);
+//    alert("back_GTM" + back_GTM)
     var b_dd = back_GTM.getDate();
     var b_mm = back_GTM.getMonth()+1;
     var b_yyyy = back_GTM.getFullYear();
@@ -156,9 +176,11 @@ var oneYearAgo = Back_date(currentTime, -365)
         b_mm = '0' +b_mm
     }
     var back_date=  b_yyyy + '-' + b_mm + '-' + b_dd;
+
     return back_date;
 }
-
+  
+  
 </script>
 
 <title>Connex: Stream Geo View</title>
@@ -168,7 +190,7 @@ var oneYearAgo = Back_date(currentTime, -365)
 {% block main_content %}
 <div id="map-container">
 		<div id="map" class="map"></div>
-	</div>
+</div>
 	<br>
 	<div id="slider-range" style="width: 1100px"></div>
 	<p>

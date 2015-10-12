@@ -9,56 +9,69 @@
 
 {% block main_content %}
 
-<div>
-    {% if num_of_streams == 0 %}
-    <h3>No Recommended Trending Streams For Now</h3>
-    {% else %}
-    <h3>Top {{ num_of_streams }} Recommended Trending Streams</h3>
-    {% endif %}
-    <table cellpadding="5">
-        {% for s in trending_streams %}
-        <td align="center" valign="center">
-            <a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
-                <img src="{{ s['cover_photo_url'] }}" height="200" width="300">
-                <h4>{{ s['name'] }}</h4>
-            </a>
-            <h6>{{ s['num_of_views'] }} views in past hour</h6>
-        </td>
-        {% endfor %}
-    </table>
-</div>
 
-<div>
-    <form action="/set_digest_rate" method="post">
-        <h4>Email trending report options</h4>
-        <table>
-            {% if digest_rate == 'no' %}
-            <td><input type="radio" name="digest_rate" value="no" checked="checked">No Report</td>
-            {% else %}
-            <td><input type="radio" name="digest_rate" value="no">No Report</td>
-            {% endif %}
+<div class="container">
+    <div class="row">
+        {% if num_of_streams == 0 %}
+        <h3>No Recommended Trending Streams For Now</h3>
+        {% else %}
+        <h3>Top {{ num_of_streams }} Recommended Trending Streams</h3>
+        {% endif %}
+            {% for s in trending_streams %}
+            <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                <a class="thumbnail" href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
+                    <img class="img-responsive" src="{{ s['cover_photo_url'] }}" alt="" height="200" width="300">
+                    <h4 align="center">{{ s['name'] }}</h4>
+                </a>
+                <h6>{{ s['num_of_views'] }} views in past hour</h6>
+            </div>
+            {% endfor %}
+    </div>
 
-            {% if digest_rate == 'per_5min' %}
-            <td><input type="radio" name="digest_rate" value="per_5min" checked="checked">Every 5 minutes</td>
-            {% else %}
-            <td><input type="radio" name="digest_rate" value="per_5min">Every 5 minutes</td>
-            {% endif %}
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="/set_digest_rate" method="post">
+                <div class="form-group">
+                <h4>Email trending report options</h4>
+                    <label class="radio-inline">
+                        {% if digest_rate == 'no' %}
+                        <td><input type="radio" name="digest_rate" value="no" checked="checked">No Report</td>
+                        {% else %}
+                        <td><input type="radio" name="digest_rate" value="no">No Report</td>
+                        {% endif %}
+                    </label>
 
-            {% if digest_rate == 'per_1hr' %}
-            <td><input type="radio" name="digest_rate" value="per_1hr" checked="checked">Every 1 hour</td>
-            {% else %}
-            <td><input type="radio" name="digest_rate" value="per_1hr">Every 1 hour</td>
-            {% endif %}
+                    <label class="radio-inline">
+                        {% if digest_rate == 'per_5min' %}
+                        <td><input type="radio" name="digest_rate" value="per_5min" checked="checked">Every 5 minutes</td>
+                        {% else %}
+                        <td><input type="radio" name="digest_rate" value="per_5min">Every 5 minutes</td>
+                        {% endif %}
+                    </label>
 
-            {% if digest_rate == 'per_1day' %}
-            <td><input type="radio" name="digest_rate" value="per_1day" checked="checked">Every day</td>
-            {% else %}
-            <td><input type="radio" name="digest_rate" value="per_1day">Every day</td>
-            {% endif %}
-        </table>
-        <br>
-        <input type="submit" value="Update Rate">
-    </form>
+                    <label class="radio-inline">
+                        {% if digest_rate == 'per_1hr' %}
+                        <td><input type="radio" name="digest_rate" value="per_1hr" checked="checked">Every 1 hour</td>
+                        {% else %}
+                        <td><input type="radio" name="digest_rate" value="per_1hr">Every 1 hour</td>
+                        {% endif %}
+                    </label>
+
+                    <label class="radio-inline">
+                        {% if digest_rate == 'per_1day' %}
+                        <td><input type="radio" name="digest_rate" value="per_1day" checked="checked">Every day</td>
+                        {% else %}
+                        <td><input type="radio" name="digest_rate" value="per_1day">Every day</td>
+                        {% endif %}
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-info" type="submit" value="Update Rate">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

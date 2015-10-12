@@ -8,24 +8,21 @@
 
 {% block main_content %}
 
-<div>
-    <h3>View All Streams</h3>
-    <table cellpadding="5">
-        {% for s in stream_list %}
-            {% if stream_list.index(s) % num_of_cols == 0 %}
-            <tr>
-            {% endif %}
-            <td align="center" valign="center">
-                <a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
-                    <img src="{{ s['cover_photo_url'] }}" height="200" width="300">
-                    <h4>{{ s['name'] }}</h4>
-                </a>
-            </td>
-            {% if stream_list.index(s) % num_of_cols == (num_of_cols - 1) %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-</div>
 
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-12">
+            <h1 class="page-header">View All Streams</h1>
+        </div>
+        {% for s in stream_list %}
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+            <a class="thumbnail" href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
+                <img class="img-responsive" src="{{ s['cover_photo_url'] }}" alt="">
+                <h4 align="center">{{ s['name'] }}</h4>
+            </a>
+        </div>
+        {% endfor %}
+</div>
 {% endblock %}

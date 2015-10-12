@@ -1,20 +1,89 @@
 {% extends "base.html" %}
 
 {% block head_title %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
 <link rel="stylesheet" href="/assets/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="/assets/css/bootstrap-image-gallery.css">
+
 <link rel="stylesheet" href="/assets/css/dropzone.css">
 
-<script src="/assets/js/jquery.min.js"></script>
-<script src="/assets/js/jquery.blueimp-gallery.min.js"></script>
-<script src="/assets/js/dropzone.js"></script>
-<script type='text/javascript' src='/assets/js/image_uploader.js'></script>
+
 
 <title>Connex: View Single Stream</title>
 
 {% endblock %}
 
 {% block main_content %}
+
+<div class="container">
+        <div class="col-lg-12">
+            <h1 class="page-header">View Stream: "{{ stream_name }}"</h1>
+        </div>
+    <form class="form-inline">
+        <div class="form-group">
+        </div>
+        <div class="form-group">
+            <button id="image-gallery-button" type="button" class="btn btn-primary btn-lg">
+                <i class="glyphicon glyphicon-picture"></i>
+                Launch Image Gallery
+            </button>
+        </div>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-success btn-lg">
+            <i class="glyphicon glyphicon-leaf"></i>
+            <input id="borderless-checkbox" type="checkbox"> Borderless
+          </label>
+          <label class="btn btn-primary btn-lg">
+            <i class="glyphicon glyphicon-fullscreen"></i>
+            <input id="fullscreen-checkbox" type="checkbox"> Fullscreen
+          </label>
+        </div>
+    </form>
+    <br>
+    <!-- The container for the list of example images -->
+    <div id="links">
+
+        {% for img_url in image_window_urls %}
+            <div class="col-md-4 col-xs-6 thumb">
+                <a id="{{ image_window_urls.index(img_url) }}" href="{{ img_url }}" data-gallery>
+                    <img class="img-rounded" src="{{ img_url }}" height = 200 width = 300>
+                </a>
+             </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-12">
+                <br>
+
+                <form action="{{ view_more_url }}" method="post">
+                     {% if view_more_button_visible %}
+                    <button class="btn btn-info" type="submit">More Pictures</button>
+                      {% endif %}
+               </form>
+
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+ <div class="form-group">
+        <form action= {{ geo_view_url }} method="post">
+            {% if geo_view_visible %}
+            <button type="submit" class="btn btn-primary">Geo view</button>
+            {% endif %}
+        </form>
+</div>
+
+</div>
 
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery">
@@ -27,36 +96,34 @@
     <a class="close">×</a>
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
-<form action="{{ view_more_url }}" method="post">
-    <div id="tableContainer">
-        <h3>View Stream: "{{ stream_name }}"</h3>
-        <table cellpadding="5">
-        {% for img_url in image_window_urls %}
-            <td align="center" valign="center">
-                <a id="{{ image_window_urls.index(img_url) }}" href="{{ img_url }}" data-gallery>
-                    <img src="{{ img_url }}" height="200" width="300">
-                </a>
-            </td>
-        {% endfor %}
-        {% if view_more_button_visible %}
-            <td align="center" valign="bottom">
-                <input type="submit" value="More Pictures">
-            </td>
-        {% endif %}
-        </table>
-    </div>
-</form>
-<form action="{{ geo_view_url }}" method="post">
-    {% if geo_view_visible %}
-    <input type="submit" value="Geo View">
-    {% endif %}
-</form>
+{% if is_stream_owner %}
+<div class="container">
 
-<br>
-{% if is_stream_owner: %}
 <!-- The method must be "POST" and enctype must be set to "multipart/form-data" -->
 <div>
     <form action="{{ upload_url }}" class="dropzone" id="my-drop-zone" method="post" enctype="multipart/form-data">
@@ -66,17 +133,41 @@
 <div>
     <button type="submit" id="upload_img">Upload</button>
 </div>
-{% else %}
-<form action="{{ subscribe_url }}" method="post">
-    <div>
-        <h4>Would you like to</h4>
-        {% if is_subscribed %}
-        <button type="submit">Unsubscribe this stream</button>
-        {% else %}
-        <button type="submit">Subscribe this stream</button>
-        {% endif %}
-    </div>
-</form>
+    {% else %}
+<div class="container">
+    <form action="{{ subscribe_url }}" method="post">
+        <div class="form-group">
+            <h4>Would you like to</h4>
+            {% if is_subscribed %}
+            <button class="btn btn-info" type="submit">Unsubscribe this stream</button>
+            {% else %}
+            <button class="btn btn-info" type="submit">Subscribe this stream</button>
+            {% endif %}
+        </div>
+    </form>
+</div>
 {% endif %}
 
-{% endblock %}
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.blueimp-gallery.min.js"></script>
+    <script src="/assets/js/bootstrap-image-gallery.min.js"></script>
+    <script src="/assets/js/demo.js"></script>
+
+    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+    <script src="/assets/js/vendor/jquery.ui.widget.js"></script>
+    <!-- The Templates plugin is included to render the upload/download listings -->
+    <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
+    <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+    <script src="//blueimp.github.io/JavaScript-Load-Image/js/load-image.all.min.js"></script>
+    <!-- The Canvas to Blob plugin is included for image resizing functionality -->
+    <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
+    <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+    <script src="/assets/js/bootstrap.min.js"></script>
+
+    <script src="/assets/js/dropzone.js"></script>
+    <script src='/assets/js/image_uploader.js'></script>
+
+ {% endblock %}
