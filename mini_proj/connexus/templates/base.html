@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+{% autoescape true %}
+
+<html lang="en">
+
+<head>
+    <style>
+        ul#menu {
+            padding: 0;
+        }
+
+        ul#menu li {
+            display: inline;
+        }
+
+        ul#menu li a {
+            background-color: black;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 4px 4px 0 0;
+        }
+
+        ul#menu li a:hover {
+            background-color: grey;
+        }
+    </style>
+
+    {% block head_title %}
+    <title>Connex: base</title>
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul id="menu">
+            <li>
+                <h1>Connexus</h1>
+            </li>
+            <li>
+                <a href="/manage">Manage</a>
+            </li>
+            <li>
+                <a href="/create">Create</a>
+            </li>
+            <li>
+                <a href="/view_all">View</a>
+            </li>
+            <li>
+                <a href="/search">Search</a>
+            </li>
+            <li>
+                <a href="/view_trending">Trending</a>
+            </li>
+            <!--<li>-->
+                <!--<a href="/social">Social</a>-->
+            <!--</li>-->
+            {% if is_admin %}
+            <li>
+                <a href="/admin">Admin</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{{ logout_url }}">Logout [{{ current_user }}]</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Main Content -->
+    {% block main_content %}
+    <p>TODO: Override this part in each child html.</p>
+    {% endblock %}
+</body>
+
+</html>
+
+{% endautoescape %}

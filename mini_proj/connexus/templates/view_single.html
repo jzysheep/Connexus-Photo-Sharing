@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+
+<link rel="stylesheet" href="/assets/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="/assets/css/dropzone.css">
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.blueimp-gallery.min.js"></script>
+<script src="/assets/js/dropzone.js"></script>
+<script type='text/javascript' src='/assets/js/image_uploader.js'></script>
+
+<title>Connex: View Single Stream</title>
+
+{% endblock %}
+
+{% block main_content %}
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+
+
+<form action="{{ view_more_url }}" method="post">
+    <div id="tableContainer">
+        <h3>View Stream: "{{ stream_name }}"</h3>
+        <table cellpadding="5">
+        {% for img_url in image_window_urls %}
+            <td align="center" valign="center">
+                <a id="{{ image_window_urls.index(img_url) }}" href="{{ img_url }}" data-gallery>
+                    <img src="{{ img_url }}" height="200" width="300">
+                </a>
+            </td>
+        {% endfor %}
+        {% if view_more_button_visible %}
+            <td align="center" valign="bottom">
+                <input type="submit" value="More Pictures">
+            </td>
+        {% endif %}
+        </table>
+    </div>
+</form>
+<form action="{{ geo_view_url }}" method="post">
+    {% if geo_view_visible %}
+    <input type="submit" value="Geo View">
+    {% endif %}
+</form>
+
+<br>
+{% if is_stream_owner: %}
+<!-- The method must be "POST" and enctype must be set to "multipart/form-data" -->
+<div>
+    <form action="{{ upload_url }}" class="dropzone" id="my-drop-zone" method="post" enctype="multipart/form-data">
+    </form>
+</div>
+<br>
+<div>
+    <button type="submit" id="upload_img">Upload</button>
+</div>
+{% else %}
+<form action="{{ subscribe_url }}" method="post">
+    <div>
+        <h4>Would you like to</h4>
+        {% if is_subscribed %}
+        <button type="submit">Unsubscribe this stream</button>
+        {% else %}
+        <button type="submit">Subscribe this stream</button>
+        {% endif %}
+    </div>
+</form>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+
+<title>Connex: Admin</title>
+
+{% endblock %}
+
+{% block main_content %}
+
+<form action="{{ delete_all_streams_handler_url }}" method="post">
+    <h3>All Streams</h3>
+    <table rules="cols" border="0" cellpadding="10" cellspacing="5">
+        <tr>
+            <th>Name</th>
+            <th>Owner</th>
+            <th>Create Date</th>
+            <th>Views</th>
+            <th>Number of Pictures</th>
+            <th>Delete</th>
+        </tr>
+        {% for s in all_streams_info_list %}
+        <tr>
+            <td><a href="/view_single?stream_key={{ s['key'].urlsafe() }}">{{ s['name'] }}</a></td>
+            <td>{{ s['Owner'] }}</td>
+            <td>{{ s['CreateDate'] }}</td>
+            <td>{{ s['NumOfViews'] }}</td>
+            <td>{{ s['NumOfImages'] }}</td>
+            <td><input type="checkbox" name="delete_admin" value="{{ s['key'].urlsafe() }}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <input type="submit" value="Delete Checked">
+</form>
+
+{% endblock %}

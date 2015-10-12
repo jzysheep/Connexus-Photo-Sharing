@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+
+<title>Connex: View All Streams</title>
+
+{% endblock %}
+
+{% block main_content %}
+
+<div>
+    <h3>View All Streams</h3>
+    <table cellpadding="5">
+        {% for s in stream_list %}
+            {% if stream_list.index(s) % num_of_cols == 0 %}
+            <tr>
+            {% endif %}
+            <td align="center" valign="center">
+                <a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">
+                    <img src="{{ s['cover_photo_url'] }}" height="200" width="300">
+                    <h4>{{ s['name'] }}</h4>
+                </a>
+            </td>
+            {% if stream_list.index(s) % num_of_cols == (num_of_cols - 1) %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}
