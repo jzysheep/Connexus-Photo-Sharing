@@ -17,10 +17,10 @@ h1 {
     font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, sans-serif;
 }
 a {
-    color: orange;
+    color: #9b59b6;
 }
 a:hover {
-    color: lightblue;
+    color: blue;
     text-decoration: none;
 }
 .modal {

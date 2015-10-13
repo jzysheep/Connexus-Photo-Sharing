@@ -129,14 +129,14 @@ var oneYearAgo = Back_date(currentTime, -365)
 	      for (var i = 0; i < result.length; i++)
 	      {
 		      var x = new Date(result[i].createTime.toString());     // UTC Time is converted to local
-		      x.setMinutes(x.getMinutes() + x.getTimezoneOffset());
+
 		      var newDate0TimeObj = new Date(newDate0);             // UTC is be converted to local, but we should add time offset to construct a whole day in current time zone
 		      var newDate1TimeObj = new Date(newDate1);             // UTC is be converted to local
               newDate0TimeObj.setMinutes(newDate0TimeObj.getMinutes() + newDate0TimeObj.getTimezoneOffset());
               newDate1TimeObj.setMinutes(newDate1TimeObj.getMinutes() + newDate1TimeObj.getTimezoneOffset());
 		      newDate0TimeObj.setDate(newDate0TimeObj.getDate() + 0)
               newDate1TimeObj.setDate(newDate1TimeObj.getDate() + 1)     // convert to the end of the day in local time
-//               alert(newDate0TimeObj + x + newDate1TimeObj)
+               alert(newDate0TimeObj + x + newDate1TimeObj)
 
 
 		      if (x >= newDate0TimeObj && x <= newDate1TimeObj )

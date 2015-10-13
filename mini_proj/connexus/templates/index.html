@@ -5,27 +5,34 @@
 <html>
 
 <head>
-    <link type="text/css" rel="stylesheet" href="/assets/css/bootstrap.min.css" >
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Custom CSS -->
-    <link type="text/css" rel="stylesheet" href="/assets/css/thumbnail-gallery.css">
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/theme.css">
+
 
     <title>Connex: Welcome</title>
 </head>
 
 <body>
-<div class="container">
-  <div class="form-group">
-        <h1>Welcome to Connexus!</h1>
-        <h3>Share the world!</h3>
 
-        <a href="{{ login_url }}" class="btn btn-info" role="button" >Login</a>
-  </div>
-</div>
-</body>
+   <div class="banner">
+      <div class="container">
+        <div class="banner-contentarea">
+          <div class="banner-content text-center text-white">
+            <h1>Welcome to Connexus!</h1>
+            <p>Share the world!</p>
+            <p><a href="{{ login_url }}" class="btn btn-theme">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</html>
+
 
 {% endautoescape %}

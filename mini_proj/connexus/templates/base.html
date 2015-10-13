@@ -58,6 +58,11 @@
                     <li>
                         <a href="/view_trending">Trending</a>
                     </li>
+                    {% if is_admin %}
+                    <li>
+                        <a href="/admin">Admin</a>
+                    </li>
+                    {% endif %}
                     <li>
                         <a href="{{ logout_url }}">Logout [{{ current_user }}]</a>
                     </li>
@@ -78,29 +83,9 @@
 
 
 
-    <!-- /.container -->
-
-    <!-- jQuery -->
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
-    <script src="/assets/js/bootstrap-image-gallery.min.js"></script>
-
-    <!--Search with Autocomplete-->
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
         <!-- Footer -->
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p align="center">Copyright &copy; Connexus: Fuzhou Zou & Ziyang Jiang</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
 </body>
 
 </html>
