@@ -45,11 +45,11 @@
             </tr>
             {% for s in subscribed_stream_info_list %}
             <tr>
-            <td><a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">{{ s['name'] }}</a></td>
-            <td>{{ s['LatestImageDate'] }}</td>
-            <td>{{ s['NumOfImages'] }}</td>
-            <td>{{ s['NumOfViews'] }}</td>
-            <td><input type="checkbox" name="unsubscribe" value="{{ s['key'].urlsafe() }}"></td>
+                <td><a href="/update_cookies?stream_key={{ s['key'].urlsafe() }}">{{ s['name'] }}</a></td>
+                <td>{{ s['LatestImageDate'] }}</td>
+                <td>{{ s['NumOfImages'] }}</td>
+                <td>{{ s['NumOfViews'] }}</td>
+                <td><input type="checkbox" name="unsubscribe" value="{{ s['key'].urlsafe() }}"></td>
             </tr>
             {% endfor %}
         </table>

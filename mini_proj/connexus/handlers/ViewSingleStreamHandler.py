@@ -20,6 +20,10 @@ class ViewSingleStreamHandler(webapp2.RequestHandler):
 
     def render(self):
         stream_key = self.getStreamKey()
+        if not stream_key:
+            self.redirect('/error?error_param=fatal_invalid_url')
+            return
+
         if self.getIsSubscriber(stream_key) and self.getIsAnotherView():
             self.updateStreamViewCount(stream_key)
             self.updateRecentView(stream_key)
@@ -95,13 +99,7 @@ class ViewSingleStreamHandler(webapp2.RequestHandler):
         return None
 
     def updateStreamViewCount(self, stream_key):
-        pre_update_count = self.getStreamNumOfViewCount(stream_key)
-
         self.setStreamNumOfViewCount(stream_key)
-
-        post_update_count = self.getStreamNumOfViewCount(stream_key)
-        while(post_update_count < (pre_update_count + 1)):
-            post_update_count = self.getStreamNumOfViewCount(stream_key)
 
     def setStreamNumOfViewCount(self, stream_key):
         try:
@@ -115,62 +113,35 @@ class ViewSingleStreamHandler(webapp2.RequestHandler):
         return (num_of_images > num_of_cols)
 
     def getIsSubscriber(self, stream_key):
-        try:
-            return (users.get_current_user().email() in stream_key.get().subscriber_list)
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        return (users.get_current_user().email() in stream_key.get().subscriber_list)
 
     def getStreamNumOfViewCount(self, stream_key):
-        try:
-            return stream_key.get().number_of_views
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        return stream_key.get().number_of_views
 
     def getStreamOwner(self, stream_key):
-        try:
-            return stream_key.get().owner
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        return stream_key.get().owner
 
     def getIsStreamOwner(self, stream_key):
-        try:
-            return (stream_key.get().owner == users.get_current_user().email())
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        return (stream_key.get().owner == users.get_current_user().email())
 
     def getStreamName(self, stream_key):
-        try:
-            return stream_key.get().name
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        return stream_key.get().name
 
     def getUploadURL(self, stream_key):
-        try:
-            url = "/upload?stream_key=" + stream_key.urlsafe()
-            return url
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        url = "/upload?stream_key=" + stream_key.urlsafe()
+        return url
 
     def getViewMoreURL(self, stream_key):
-        try:
-            url = "/view_more?stream_key=" + stream_key.urlsafe()
-            return url
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        url = "/view_more?stream_key=" + stream_key.urlsafe()
+        return url
 
     def getGeoViewURL(self, stream_key):
-        try:
-            url = "/geo_view?stream_key=" + stream_key.urlsafe()
-            return url
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        url = "/geo_view?stream_key=" + stream_key.urlsafe()
+        return url
 
     def getSubscribeHandlerURL(self, stream_key):
-        try:
-            handler_url = '/subscribe?stream_key=' + stream_key.urlsafe()
-            return handler_url
-        except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+        handler_url = '/subscribe?stream_key=' + stream_key.urlsafe()
+        return handler_url
 
     def getImageURLs(self, stream_key):
         image_query = common.Image.query(common.Image.stream_key == stream_key).order(-common.Image.upload_date)
@@ -193,7 +164,7 @@ class ViewSingleStreamHandler(webapp2.RequestHandler):
         try:
             return ndb.Key(urlsafe=self.request.get("stream_key"))
         except:
-            self.redirect('/error?error_param=fatal_invalid_url')
+            return None
 
     def getIsAnotherView(self):
         return (self.getCookies('index') == 0) and (self.getCookies('refresh') == 0)
