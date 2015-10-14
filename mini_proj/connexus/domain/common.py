@@ -8,7 +8,7 @@ from google.appengine.ext import ndb
 JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__), '../templates')),
                                        extensions=['jinja2.ext.autoescape'],
                                        autoescape=True)
-app_id = 'skilled-orbit-108304'
+app_id = 'lunar-bonus-109816'
 connexus_home = 'http://' + app_id + '.appspot.com'
 admin_email = 'zoufuzhouclipper@gmail.com'
 raw_logout_url = '/'
