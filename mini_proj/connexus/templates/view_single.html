@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head_title %}
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,10 +10,12 @@
 
 <link rel="stylesheet" href="/assets/css/blueimp-gallery.min.css">
 <link rel="stylesheet" href="/assets/css/bootstrap-image-gallery.css">
-
 <link rel="stylesheet" href="/assets/css/dropzone.css">
 
-
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.blueimp-gallery.min.js"></script>
+<script src="/assets/js/dropzone.js"></script>
+<script src='/assets/js/image_uploader.js'></script>
 
 <title>Connex: View Single Stream</title>
 
@@ -21,14 +24,14 @@
 {% block main_content %}
 
 <div class="container">
-        <div class="col-lg-12">
-            <h1 class="page-header">View Stream: "{{ stream_name }}"</h1>
-        </div>
+    <div class="col-lg-12">
+        <h1 class="page-header">View Stream: "{{ stream_name }}"</h1>
+    </div>
 
     <br>
-    <!-- The container for the list of example images -->
-    <div id="links">
 
+    <!-- The container for the list of stream images -->
+    <div id="links">
         {% for img_url in image_window_urls %}
             <div class="col-md-4 col-xs-6 thumb">
                 <a id="{{ image_window_urls.index(img_url) }}" href="{{ img_url }}" data-gallery>
@@ -36,33 +39,30 @@
                 </a>
              </div>
         {% endfor %}
-
     </div>
 
     <div class="form-group">
         <div class="row">
             <div class="col-lg-12">
                 <br>
-
                 <form action="{{ view_more_url }}" method="post">
                      {% if view_more_button_visible %}
                     <button class="btn btn-info" type="submit">More Pictures</button>
                       {% endif %}
                </form>
-
             </div>
         </div>
     </div>
 
     <br>
 
- <div class="form-group">
+    <div class="form-group">
         <form action= {{ geo_view_url }} method="post">
             {% if geo_view_visible %}
-            <button type="submit" class="btn btn-primary">Geo view</button>
+                <button type="submit" class="btn btn-primary">Geo view</button>
             {% endif %}
         </form>
-</div>
+    </div>
 
 </div>
 
@@ -80,20 +80,24 @@
     <!-- The modal dialog, which will be used to wrap the lightbox content -->
 </div>
 
-
 {% if is_stream_owner %}
-<div class="container">
 
-<!-- The method must be "POST" and enctype must be set to "multipart/form-data" -->
-<div>
-    <form action="{{ upload_url }}" class="dropzone" id="my-drop-zone" method="post" enctype="multipart/form-data">
-    </form>
+<div class="container">
+    <!-- The method must be "POST" and enctype must be set to "multipart/form-data" -->
+    <div>
+        <form action="{{ upload_url }}" class="dropzone" id="my-drop-zone" method="post" enctype="multipart/form-data">
+        </form>
+    </div>
+
+    <br>
+
+    <div>
+        <button type="submit" id="upload_img" class="btn btn-success">Upload</button>
+    </div>
 </div>
-<br>
-<div>
-    <button type="submit" id="upload_img" class="btn btn-success">Upload</button>
-</div>
-    {% else %}
+
+{% else %}
+
 <div class="container">
     <form action="{{ subscribe_url }}" method="post">
         <div class="form-group">
@@ -106,18 +110,7 @@
         </div>
     </form>
 </div>
+
 {% endif %}
 
-
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/jquery.blueimp-gallery.min.js"></script>
-    <script src="/assets/js/demo.js"></script>
-
-
-
-    <script src="/assets/js/dropzone.js"></script>
-    <script src='/assets/js/image_uploader.js'></script>
-
- {% endblock %}
+{% endblock %}

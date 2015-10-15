@@ -89,13 +89,11 @@ class CreateNewStreamHandler(webapp2.RequestHandler):
         return doc
 
     def getSubStrings(self):
-        r = re.compile(r"\b(\w+)\b")
-        strs = r.findall(self.getStreamName())
         string_list = []
-        for str in strs:
-            length = len(str)
-            string_list.extend([str[i:j+1] for i in xrange(length) for j in xrange(i, length)])
-        return " ".join(list(set(string_list)))
+        str = self.getStreamName()
+        length = len(str)
+        string_list.extend([str[i:j+1] for i in xrange(length) for j in xrange(i, length)])
+        return " ".join(string_list)
 
     def sendInviteEmails(self, stream_key):
         email_list = self.getStreamEmailList()

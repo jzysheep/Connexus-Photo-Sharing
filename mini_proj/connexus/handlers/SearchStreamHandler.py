@@ -60,7 +60,7 @@ class SearchStreamHandler(webapp2.RequestHandler):
 
     def createQuery(self, search_str):
         query_str = self.getQueryString(search_str)
-        sort = search.SortExpression(expression='name', direction=search.SortExpression.ASCENDING, default_value=0)
+        sort = search.SortExpression(expression='name', direction=search.SortExpression.ASCENDING)
         sort_opts = search.SortOptions(expressions=[sort])
         query_options = search.QueryOptions(
             limit=20,
@@ -160,7 +160,7 @@ class SearchSuggestionHandler(webapp2.RequestHandler):
 
     def createQuery(self, search_str):
         query_string = self.getQueryString(search_str)
-        sort = search.SortExpression(expression='name', direction=search.SortExpression.ASCENDING, default_value=0)
+        sort = search.SortExpression(expression='name', direction=search.SortExpression.ASCENDING)
         sort_opts = search.SortOptions(expressions=[sort])
         query_options=search.QueryOptions(
             limit=20,
