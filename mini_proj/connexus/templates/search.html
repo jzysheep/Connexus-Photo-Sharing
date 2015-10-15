@@ -18,17 +18,24 @@
 
 
 <div class="container">
-    <form action="/search" method="get">
-        <h3>Search Streams</h3>
-        <br>
 
-        <div class="form-group">
-            <input name="search_str" size="35" id="search_str">
+        <div class="col-lg-12">
+            <h1 class="page-header">Search Streams</h1>
         </div>
-        <div class="form-group">
-            <div><input class="btn btn-info" type="submit" value="Search Stream"></div>
-        </div>
-    </form>
+
+            <form action="/search" method="get" class="form-inline" role="form">
+                <div class="form-group">
+                    <input type="text" id="search_str" size=50 value="" name="search_str" class="form-control" placeholder="Type search keywords here">
+                </div>
+                <div class="form-group">
+                <button id="search_btn" type="submit" class="btn btn-primary">&nbsp;<i class="glyphicon glyphicon-search"></i> Search &nbsp;</button>
+                </div>
+            </form>
+    <br>
+    <br>
+
+
+
 </div>
 
 
