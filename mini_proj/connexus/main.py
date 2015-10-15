@@ -24,6 +24,7 @@ from handlers.CreateNewStreamHandler import CreateNewStreamHandler
 from handlers.ViewSingleStreamHandler import ViewSingleStreamHandler
 from handlers.ViewAllStreamsHandler import ViewAllStreamsHandler
 from handlers.ImageUploadHandler import ImageUploadHandler
+from handlers.ImageUploadHandler import ImageUploadURLGenerationHandler
 from handlers.SubscribeStreamHandler import SubscribeStreamHandler
 from handlers.DeleteStreamHandler import DeleteOwnedStreamHandler
 from handlers.UnsubscribedStreamHandler import UnsubscribedStreamHandler
@@ -65,6 +66,7 @@ app = webapp2.WSGIApplication([
     ('/view_single', ViewSingleStreamHandler),
     ('/view_all', ViewAllStreamsHandler),
     ('/upload', ImageUploadHandler),
+    ('/upload_url_gen', ImageUploadURLGenerationHandler),
     ('/subscribe', SubscribeStreamHandler),
     ('/delete_owned_stream', DeleteOwnedStreamHandler),
     ('/unsubscribe_stream', UnsubscribedStreamHandler),

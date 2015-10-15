@@ -45,7 +45,7 @@ class GeoViewHandler(webapp2.RequestHandler):
         image_list = image_query.fetch()
 
         for image in image_list:
-            createTime = str(image.upload_date)[:10] + 'T' + str(image.upload_date)[11:]
+            createTime = str(image.upload_date)[:10] + 'T' + str(image.upload_date)[11:] + 'Z'
             # date_object = datetime.strptime(createTime, '%Y-%m-%d')
 
             lat = - 57.32652122521709 + 114.65304245043419 * random.random()

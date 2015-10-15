@@ -1,5 +1,8 @@
 __author__ = 'Fuzhou Zou'
 
+import json
+
+import webapp2
 from google.appengine.api import users
 from google.appengine.ext import blobstore
 from google.appengine.ext.webapp import blobstore_handlers
@@ -60,3 +63,18 @@ class ImageUploadHandler(blobstore_handlers.BlobstoreUploadHandler):
             return ndb.Key(urlsafe=self.request.get("stream_key"))
         except:
             self.redirect('/error?error_param=fatal_invalid_url')
+
+class ImageUploadURLGenerationHandler(webapp2.RequestHandler):
+    def post(self):
+        upload_url = blobstore.create_upload_url(self.getUploadURL())
+        resp = self.getResponse(upload_url)
+        self.response.out.write(resp)
+
+    def getUploadURL(self):
+        url = "/upload?stream_key=" + self.request.get('stream_key')
+        return url
+
+    def getResponse(self, upload_url):
+        resp = {}
+        resp['upload_url'] = upload_url
+        return json.dumps(resp)
