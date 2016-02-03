@@ -1,5 +1,3 @@
-__author__ = 'Fuzhou Zou'
-
 import os
 import jinja2
 
@@ -10,7 +8,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.jo
                                        autoescape=True)
 app_id = 'lunar-bonus-109816'
 connexus_home = 'http://' + app_id + '.appspot.com'
-admin_email = 'zoufuzhouclipper@gmail.com'
+admin_email = 'zyjiang@utexas.edu'
 raw_logout_url = '/'
 raw_login_url = '/manage'
 

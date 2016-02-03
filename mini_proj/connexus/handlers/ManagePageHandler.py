@@ -1,5 +1,3 @@
-__author__ = 'Fuzhou Zou'
-
 import webapp2
 from google.appengine.api import users
 

@@ -1,5 +1,3 @@
-__author__ = 'Fuzhou Zou'
-
 import webapp2
 
 class UpdateCookiesHandler(webapp2.RequestHandler):

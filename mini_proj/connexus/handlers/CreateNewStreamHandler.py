@@ -1,5 +1,3 @@
-__author__ = 'Fuzhou Zou'
-
 import re
 import time
 

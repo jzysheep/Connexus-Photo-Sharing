@@ -1,5 +1,3 @@
-__author__ = 'Fuzhou Zou'
-
 import json
 
 import webapp2
